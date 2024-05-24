@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="{ 
+    badPlanets: ['Earth', 'Saturn', 'Pluto'],
+    hideBadPlanets: true,
+    planets: {{ planets }},
+}">
+    <h1> Hello, {{ planets|random }} </h1> {# Jinja syntax works #}
+
+    <label for="hideBadPlanets">Hide Bad Planets</label>
+    <input id="hideBadPlanets" type="checkbox" x-model="hideBadPlanets">
+
+    <form method="post">
+    <select name="planet">
+        <template x-for="planet in planets" :key="planet"> {# Alpine syntax also works #}
+            <option x-text="planet" x-show="!hideBadPlanets || !badPlanets.includes(planet)"></option>
+        </template>
+    </select>
+    <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
